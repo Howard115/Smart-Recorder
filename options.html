@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+    <title>语音翻译插件设置</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label, input {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        input[type="text"] {
+            padding: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        #status {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>语音翻译插件设置</h1>
+        <label for="apiKey">Groq API Key:</label>
+        <input type="text" id="apiKey" placeholder="请输入您的 Groq API Key">
+        <button id="save">保存</button>
+        <div id="status"></div>
+    </div>
+    <script src="options.js"></script>
+</body>
+</html>

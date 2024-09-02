@@ -1,0 +1,67 @@
+body {
+  width: 300px;
+  font-family: Arial, sans-serif;
+  padding: 15px;
+  background-color: #f9f9f9; /* Light background for better visibility */
+}
+
+#status {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #333;
+}
+
+#result {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+#buttonContainer {
+  display: flex;
+  justify-content: space-between; /* Distribute buttons to the left and right */
+}
+
+button {
+  flex: 1; /* Allow buttons to take equal space */
+  margin: 0 5px; /* Small margin between buttons */
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.green {
+  background-color: #4CAF50;
+}
+
+.blue {
+  background-color: #007BFF; /* Blue color for the "重新录制" button */
+}
+
+.red {
+  background-color: #f44336;
+}
+
+.disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.blinking {
+  animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
