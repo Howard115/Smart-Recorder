@@ -154,7 +154,8 @@ function showResult(text, shouldSave = true) {
     document.getElementById('copyButton').addEventListener('click', () => {
         resultElement.select();
         document.execCommand('copy');
-        alert('文本已复制到剪贴板！');
+        document.getElementById('copyButton').style.backgroundColor = '#006400'; // Dark green color
+        document.getElementById('copyButton').textContent = '已複製';
     });
 
     document.getElementById('resetButton').addEventListener('click', () => {
