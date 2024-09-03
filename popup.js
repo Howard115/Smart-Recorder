@@ -158,10 +158,7 @@ function showResult(text, shouldSave = true) {
         document.getElementById('copyButton').textContent = '已複製';
     });
 
-    document.getElementById('resetButton').addEventListener('click', () => {
-        resetUI();
-        toggleRecording(); // Start recording directly after resetting the UI
-    });
+    document.getElementById('resetButton').addEventListener('click', resetUI);
 }
 
 function resetUI() {
