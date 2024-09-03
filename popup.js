@@ -158,8 +158,33 @@ function showResult(text, shouldSave = true) {
         document.getElementById('copyButton').textContent = '已複製';
     });
 
-    document.getElementById('resetButton').addEventListener('click', resetUI);
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'c' && event.ctrlKey) {
+            resultElement.select();
+            document.execCommand('copy');
+            document.getElementById('copyButton').style.backgroundColor = '#006400'; // Dark green color
+            document.getElementById('copyButton').textContent = '已複製';
+        }
+    });
+
+    document.getElementById('resetButton').addEventListener('click', () => {
+        resetUI();
+        toggleRecording();
+    });
 }
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'r' && event.ctrlKey) {
+        const resetButton = document.getElementById('resetButton');
+        const actionButton = document.getElementById('actionButton');
+        if (resetButton) {
+            resetButton.click();
+        } else if (actionButton) {
+            actionButton.click();
+        }
+    }
+
+});
 
 function resetUI() {
     localStorage.removeItem('lastResult'); // Clear saved state
