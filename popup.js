@@ -131,9 +131,13 @@ function sendAudioForTranslation(audioBlob) {
 
 // Load the last state when the popup is opened
 document.addEventListener('DOMContentLoaded', () => {
-    const lastResult = localStorage.getItem('lastResult');
-    if (lastResult) {
-        showResult(lastResult, false); // Don't reset the UI on reload
+    const lastEnglishResult = localStorage.getItem('lastEnglishResult');
+    const lastChineseResult = localStorage.getItem('lastChineseResult');
+    if (lastEnglishResult) {
+        showResult(lastEnglishResult, false); // Don't reset the UI on reload
+    }
+    if (lastChineseResult) {
+        showChineseResult(lastChineseResult, false); // Don't reset the UI on reload
     }
 });
 
@@ -141,7 +145,7 @@ function showResult(text, shouldSave = true) {
     text = text.trim(); // Remove any leading or trailing whitespace
 
     if (shouldSave) {
-        localStorage.setItem('lastResult', text);
+        localStorage.setItem('lastEnglishResult', text);
     }
 
     statusElement.style.display = 'none';
@@ -149,8 +153,8 @@ function showResult(text, shouldSave = true) {
     resultElement.value = text;
 
     buttonContainer.innerHTML = `
-    <button id="translateButton" class="green">翻译成中文</button>
     <button id="copyButton" class="green">复制文本</button>
+    <button id="translateButton" class="green">翻译成中文</button>
     <button id="resetButton" class="blue">重新录制</button>
   `;
 
@@ -228,7 +232,11 @@ function translateToChinese(englishText) {
         });
 }
 
-function showChineseResult(text) {
+function showChineseResult(text, shouldSave = true) {
+    if (shouldSave) {
+        localStorage.setItem('lastChineseResult', text);
+    }
+
     statusElement.style.display = 'none';
     const chineseResultElement = document.getElementById('chineseResult');
     chineseResultElement.style.display = 'block';
@@ -261,19 +269,20 @@ function showChineseResult(text) {
 }
 
 function resetUI() {
-    localStorage.removeItem('lastResult'); // Clear saved state
+    localStorage.removeItem('lastEnglishResult'); // Clear saved English result
+    localStorage.removeItem('lastChineseResult'); // Clear saved Chinese result
     statusElement.style.display = 'block';
     statusElement.textContent = "点击下方按钮录制语音并翻译成英文";
     statusElement.classList.remove('blinking');
     resultElement.style.display = 'none';
     resultElement.value = '';
+    const chineseResultElement = document.getElementById('chineseResult');
+    chineseResultElement.style.display = 'none';
+    chineseResultElement.value = '';
     buttonContainer.innerHTML = '<button id="actionButton" class="green">语音翻译</button>';
     actionButton = document.getElementById('actionButton');
     actionButton.disabled = false;
     actionButton.addEventListener('click', toggleRecording);
-    const chineseResultElement = document.getElementById('chineseResult');
-    chineseResultElement.style.display = 'none';
-    chineseResultElement.value = '';
 }
 
 function handleShortcut(event) {
