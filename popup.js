@@ -275,3 +275,23 @@ function resetUI() {
     chineseResultElement.style.display = 'none';
     chineseResultElement.value = '';
 }
+
+function handleShortcut(event) {
+    if (event.ctrlKey && event.key === 'b') {
+        event.preventDefault(); // Prevent the default browser action for Ctrl+B
+        const chineseResultElement = document.getElementById('chineseResult');
+        if (chineseResultElement.style.display === 'none') {
+            const translateButton = document.getElementById('translateButton');
+            if (translateButton) {
+                translateButton.click();
+            }
+        } else {
+            const copyChineseButton = document.getElementById('copyChineseButton');
+            if (copyChineseButton) {
+                copyChineseButton.click();
+            }
+        }
+    }
+}
+
+document.addEventListener('keydown', handleShortcut);
