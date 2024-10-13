@@ -159,7 +159,7 @@ function showResult(text, shouldSave = true) {
   `;
 
     document.getElementById('translateButton').addEventListener('click', () => {
-        translateToChinese(text);
+        translateToChinese(resultElement.value);
     });
 
     document.getElementById('copyButton').addEventListener('click', () => {
