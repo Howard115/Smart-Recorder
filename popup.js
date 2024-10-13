@@ -2,6 +2,7 @@
 
 let API_KEY = ''; // 将从存储中获取
 const API_ENDPOINT = 'https://api.groq.com/openai/v1/audio/translations'; // Groq API端点
+let OPENAI_API_KEY = '';
 
 let isRecording = false;
 let mediaRecorder;
@@ -12,10 +13,11 @@ const resultElement = document.getElementById('result');
 let actionButton = document.getElementById('actionButton');
 const buttonContainer = document.getElementById('buttonContainer');
 
-// 从Chrome存储中获取API密钥
-chrome.storage.sync.get(['apiKey'], function(result) {
+// Fetch both API keys
+chrome.storage.sync.get(['apiKey', 'openaiApiKey'], function(result) {
     API_KEY = result.apiKey;
-    if (!API_KEY) {
+    OPENAI_API_KEY = result.openaiApiKey;
+    if (!API_KEY || !OPENAI_API_KEY) {
         statusElement.textContent = "请先在选项页面设置API密钥";
         actionButton.disabled = true;
     }
@@ -147,9 +149,14 @@ function showResult(text, shouldSave = true) {
     resultElement.value = text;
 
     buttonContainer.innerHTML = `
+    <button id="translateButton" class="green">翻译成中文</button>
     <button id="copyButton" class="green">复制文本</button>
     <button id="resetButton" class="blue">重新录制</button>
   `;
+
+    document.getElementById('translateButton').addEventListener('click', () => {
+        translateToChinese(text);
+    });
 
     document.getElementById('copyButton').addEventListener('click', () => {
         resultElement.select();
@@ -186,6 +193,73 @@ document.addEventListener('keydown', (event) => {
 
 });
 
+function translateToChinese(englishText) {
+    if (!OPENAI_API_KEY) {
+        alert('请先在选项页面设置OpenAI API密钥');
+        return;
+    }
+
+    statusElement.textContent = "正在翻译成中文...";
+    statusElement.style.display = 'block';
+
+    fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${OPENAI_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: "gpt-3.5-turbo",
+                messages: [
+                    { role: "system", content: "You are a translator. Translate the following English text to Chinese." },
+                    { role: "user", content: englishText }
+                ]
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const chineseText = data.choices[0].message.content.trim();
+            showChineseResult(chineseText);
+        })
+        .catch(error => {
+            console.error('Error during translation:', error);
+            alert(`翻译成中文时出现错误: ${error.message}`);
+            statusElement.textContent = "翻译失败";
+        });
+}
+
+function showChineseResult(text) {
+    statusElement.style.display = 'none';
+    const chineseResultElement = document.getElementById('chineseResult');
+    chineseResultElement.style.display = 'block';
+    chineseResultElement.value = text;
+
+    buttonContainer.innerHTML = `
+    <button id="copyEnglishButton" class="green">复制英文</button>
+    <button id="copyChineseButton" class="green">复制中文</button>
+    <button id="resetButton" class="blue">重新录制</button>
+  `;
+
+    document.getElementById('copyEnglishButton').addEventListener('click', () => {
+        document.getElementById('result').select();
+        document.execCommand('copy');
+        document.getElementById('copyEnglishButton').style.backgroundColor = '#006400';
+        document.getElementById('copyEnglishButton').textContent = '已复制英文';
+    });
+
+    document.getElementById('copyChineseButton').addEventListener('click', () => {
+        chineseResultElement.select();
+        document.execCommand('copy');
+        document.getElementById('copyChineseButton').style.backgroundColor = '#006400';
+        document.getElementById('copyChineseButton').textContent = '已复制中文';
+    });
+
+    document.getElementById('resetButton').addEventListener('click', () => {
+        resetUI();
+        toggleRecording();
+    });
+}
+
 function resetUI() {
     localStorage.removeItem('lastResult'); // Clear saved state
     statusElement.style.display = 'block';
@@ -197,4 +271,7 @@ function resetUI() {
     actionButton = document.getElementById('actionButton');
     actionButton.disabled = false;
     actionButton.addEventListener('click', toggleRecording);
+    const chineseResultElement = document.getElementById('chineseResult');
+    chineseResultElement.style.display = 'none';
+    chineseResultElement.value = '';
 }
