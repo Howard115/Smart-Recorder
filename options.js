@@ -1,4 +1,4 @@
-// 保存选项到 chrome.storage
+// 保存選項到 chrome.storage
 function saveOptions() {
     const apiKey = document.getElementById('apiKey').value;
     const openaiApiKey = document.getElementById('openaiApiKey').value;

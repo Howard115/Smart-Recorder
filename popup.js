@@ -1,7 +1,7 @@
 // popup.js
 
-let API_KEY = ''; // 将从存储中获取
-const API_ENDPOINT = 'https://api.groq.com/openai/v1/audio/translations'; // Groq API端点
+let API_KEY = ''; // 將從存儲中獲取
+const API_ENDPOINT = 'https://api.groq.com/openai/v1/audio/translations'; // Groq API端點
 let OPENAI_API_KEY = '';
 
 let isRecording = false;
@@ -18,7 +18,7 @@ chrome.storage.sync.get(['apiKey', 'openaiApiKey'], function(result) {
     API_KEY = result.apiKey;
     OPENAI_API_KEY = result.openaiApiKey;
     if (!API_KEY || !OPENAI_API_KEY) {
-        statusElement.textContent = "请先在选项页面设置API密钥";
+        statusElement.textContent = "請先在選項頁面設置API密鑰";
         actionButton.disabled = true;
     }
 });
@@ -27,7 +27,7 @@ actionButton.addEventListener('click', toggleRecording);
 
 function toggleRecording() {
     if (!API_KEY) {
-        alert('请先在选项页面设置API密钥');
+        alert('請先在選項頁面設置API密鑰');
         return;
     }
     if (!isRecording) {
@@ -54,7 +54,7 @@ function startRecording() {
                 audioChunks.push(event.data);
             });
 
-            statusElement.textContent = "录音进行中...";
+            statusElement.textContent = "錄音進行中...";
             statusElement.classList.add('blinking');
             actionButton.textContent = "停止";
             actionButton.classList.remove('green');
@@ -62,7 +62,7 @@ function startRecording() {
         })
         .catch(error => {
             console.error('Error accessing microphone:', error);
-            alert('无法访问麦克风。请检查您的权限设置。');
+            alert('無法訪問麥克風。請檢查您的權限設置。');
         });
 }
 
@@ -70,8 +70,8 @@ function stopRecording() {
     isRecording = false;
     mediaRecorder.stop();
 
-    statusElement.textContent = "正在翻译...";
-    actionButton.textContent = "翻译中";
+    statusElement.textContent = "正在翻譯...";
+    actionButton.textContent = "翻譯中";
     actionButton.classList.remove('red');
     actionButton.classList.add('disabled');
     actionButton.disabled = true;
@@ -93,7 +93,7 @@ function sendAudioForTranslation(audioBlob) {
     formData.append('file', audioBlob, 'audio.webm');
     formData.append('model', 'whisper-large-v3');
     formData.append('temperature', '0.0');
-    // formData.append('prompt', '提供必要的上下文'); // 可选
+    // formData.append('prompt', '提供必要的上下文'); // 可選
 
     console.log('Sending audio for translation...');
 
@@ -124,7 +124,7 @@ function sendAudioForTranslation(audioBlob) {
         })
         .catch(error => {
             console.error('Error during translation:', error);
-            alert(`翻译过程中出现错误: ${error.message}`);
+            alert(`翻譯過程中出現錯誤: ${error.message}`);
             resetUI();
         });
 }
@@ -153,9 +153,9 @@ function showResult(text, shouldSave = true) {
     resultElement.value = text;
 
     buttonContainer.innerHTML = `
-    <button id="copyButton" class="green">复制文本</button>
-    <button id="translateButton" class="green">翻译成中文</button>
-    <button id="resetButton" class="blue">重新录制</button>
+    <button id="copyButton" class="green">複製文本</button>
+    <button id="translateButton" class="green">翻譯成中文</button>
+    <button id="resetButton" class="blue">重新錄製</button>
   `;
 
     document.getElementById('translateButton').addEventListener('click', () => {
@@ -199,11 +199,11 @@ document.addEventListener('keydown', (event) => {
 
 function translateToChinese(englishText) {
     if (!OPENAI_API_KEY) {
-        alert('请先在选项页面设置OpenAI API密钥');
+        alert('請先在選項頁面設置OpenAI API密鑰');
         return;
     }
 
-    statusElement.textContent = "正在翻译成中文...";
+    statusElement.textContent = "正在翻譯成中文...";
     statusElement.style.display = 'block';
 
     fetch('https://api.openai.com/v1/chat/completions', {
@@ -227,8 +227,8 @@ function translateToChinese(englishText) {
         })
         .catch(error => {
             console.error('Error during translation:', error);
-            alert(`翻译成中文时出现错误: ${error.message}`);
-            statusElement.textContent = "翻译失败";
+            alert(`翻譯成中文時出現錯誤: ${error.message}`);
+            statusElement.textContent = "翻譯失敗";
         });
 }
 
@@ -243,23 +243,23 @@ function showChineseResult(text, shouldSave = true) {
     chineseResultElement.value = text;
 
     buttonContainer.innerHTML = `
-    <button id="copyEnglishButton" class="green">复制英文</button>
-    <button id="copyChineseButton" class="green">复制中文</button>
-    <button id="resetButton" class="blue">重新录制</button>
+    <button id="copyEnglishButton" class="green">複製英文</button>
+    <button id="copyChineseButton" class="green">複製中文</button>
+    <button id="resetButton" class="blue">重新錄製</button>
   `;
 
     document.getElementById('copyEnglishButton').addEventListener('click', () => {
         document.getElementById('result').select();
         document.execCommand('copy');
         document.getElementById('copyEnglishButton').style.backgroundColor = '#006400';
-        document.getElementById('copyEnglishButton').textContent = '已复制英文';
+        document.getElementById('copyEnglishButton').textContent = '已複製英文';
     });
 
     document.getElementById('copyChineseButton').addEventListener('click', () => {
         chineseResultElement.select();
         document.execCommand('copy');
         document.getElementById('copyChineseButton').style.backgroundColor = '#006400';
-        document.getElementById('copyChineseButton').textContent = '已复制中文';
+        document.getElementById('copyChineseButton').textContent = '已複製中文';
     });
 
     document.getElementById('resetButton').addEventListener('click', () => {
@@ -272,14 +272,14 @@ function resetUI() {
     localStorage.removeItem('lastEnglishResult'); // Clear saved English result
     localStorage.removeItem('lastChineseResult'); // Clear saved Chinese result
     statusElement.style.display = 'block';
-    statusElement.textContent = "点击下方按钮录制语音并翻译成英文";
+    statusElement.textContent = "點擊下方按鈕錄製語音並翻譯成英文";
     statusElement.classList.remove('blinking');
     resultElement.style.display = 'none';
     resultElement.value = '';
     const chineseResultElement = document.getElementById('chineseResult');
     chineseResultElement.style.display = 'none';
     chineseResultElement.value = '';
-    buttonContainer.innerHTML = '<button id="actionButton" class="green">语音翻译</button>';
+    buttonContainer.innerHTML = '<button id="actionButton" class="green">語音翻譯</button>';
     actionButton = document.getElementById('actionButton');
     actionButton.disabled = false;
     actionButton.addEventListener('click', toggleRecording);
