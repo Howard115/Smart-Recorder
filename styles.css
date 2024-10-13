@@ -2,57 +2,59 @@ body {
   width: 300px;
   font-family: Arial, sans-serif;
   padding: 15px;
-  background-color: #f9f9f9; /* Light background for better visibility */
+  background-color: #E1DDBF; /* Tan color for the background */
 }
 
 #status {
   text-align: center;
   margin-bottom: 15px;
   font-size: 16px;
-  color: #333;
+  color: #04253A; /* Dark Blue for text */
 }
 
 #result, #chineseResult {
   width: 100%;
   height: 100px;
   margin-bottom: 15px;
-  border: 1px solid #ddd;
+  border: 1px solid #04253A; /* Dark Blue for border */
   border-radius: 5px;
   padding: 10px;
   font-size: 14px;
   box-sizing: border-box;
+  background-color: #E1DDBF; /* Tan color for textarea background */
+  color: #04253A; /* Dark Blue for text */
 }
 
 #buttonContainer {
   display: flex;
-  justify-content: space-between; /* Distribute buttons to the left and right */
+  justify-content: space-between;
 }
 
 button {
-  flex: 1; /* Allow buttons to take equal space */
-  margin: 0 5px; /* Small margin between buttons */
+  flex: 1;
+  margin: 0 5px;
   padding: 10px;
   border: none;
   border-radius: 5px;
-  color: white;
+  color: #E1DDBF; /* Tan color for button text */
   font-weight: bold;
   cursor: pointer;
 }
 
 .green {
-  background-color: #4CAF50;
+  background-color: #4C837A; /* Green color */
 }
 
 .blue {
-  background-color: #007BFF; /* Blue color for the "重新录制" button */
+  background-color: #04253A; /* Dark Blue color */
 }
 
 .red {
-  background-color: #f44336;
+  background-color: #04253A; /* Dark Blue color instead of red */
 }
 
 .disabled {
-  background-color: #cccccc;
+  background-color: #8A8774; /* Darker shade of Tan for disabled state */
   cursor: not-allowed;
 }
 

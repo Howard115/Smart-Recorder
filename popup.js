@@ -165,7 +165,7 @@ function showResult(text, shouldSave = true) {
     document.getElementById('copyButton').addEventListener('click', () => {
         resultElement.select();
         document.execCommand('copy');
-        document.getElementById('copyButton').style.backgroundColor = '#006400'; // Dark green color
+        document.getElementById('copyButton').style.backgroundColor = '#04253A';
         document.getElementById('copyButton').textContent = '已複製';
     });
 
@@ -173,7 +173,7 @@ function showResult(text, shouldSave = true) {
         if (event.key === 'c' && event.ctrlKey) {
             resultElement.select();
             document.execCommand('copy');
-            document.getElementById('copyButton').style.backgroundColor = '#006400'; // Dark green color
+            document.getElementById('copyButton').style.backgroundColor = '#04253A';
             document.getElementById('copyButton').textContent = '已複製';
         }
     });
@@ -215,7 +215,7 @@ function translateToChinese(englishText) {
             body: JSON.stringify({
                 model: "gpt-3.5-turbo",
                 messages: [
-                    { role: "system", content: "You are a translator. Translate the following English text to Chinese." },
+                    { role: "system", content: "You are a translator. Translate the following English text to traditional Chinese." },
                     { role: "user", content: englishText }
                 ]
             })
@@ -251,14 +251,14 @@ function showChineseResult(text, shouldSave = true) {
     document.getElementById('copyEnglishButton').addEventListener('click', () => {
         document.getElementById('result').select();
         document.execCommand('copy');
-        document.getElementById('copyEnglishButton').style.backgroundColor = '#006400';
+        document.getElementById('copyEnglishButton').style.backgroundColor = '#04253A';
         document.getElementById('copyEnglishButton').textContent = '已複製英文';
     });
 
     document.getElementById('copyChineseButton').addEventListener('click', () => {
         chineseResultElement.select();
         document.execCommand('copy');
-        document.getElementById('copyChineseButton').style.backgroundColor = '#006400';
+        document.getElementById('copyChineseButton').style.backgroundColor = '#04253A';
         document.getElementById('copyChineseButton').textContent = '已複製中文';
     });
 
