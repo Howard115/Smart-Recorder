@@ -34,4 +34,4 @@
 6. After translation, use the `Ctrl + B` shortcut again to copy the Chinese text to your clipboard.
 
 ## Credits
-The prototype code for this project is based on a tutorial by [Zhu的AI开发日记](https://www.youtube.com/@zhuhaofunAI).
+The prototype code for this project is based on a [tutorial](https://www.youtube.com/watch?v=MWlcUgyllco) by [Zhu的AI开发日记](https://www.youtube.com/@zhuhaofunAI).
