@@ -6,7 +6,7 @@
 ## Features
 - Voice recording within the Chrome browser.
 - Translation of voice input to English text using the GroqCloud Whisper API.
-- Translation of English text to Chinese using OpenAI's GPT-3.5 model.
+- Translation of English text to Chinese using OpenAI's GPT-4o-mini model.
 - Keyboard shortcuts for easy control and navigation.
 - Copy translated text (both English and Chinese) to the clipboard with a single shortcut.
 
@@ -23,7 +23,7 @@
 3. Enable "Developer mode" by toggling the switch in the top-right corner.
 4. Click on "Load unpacked" and select the folder containing the extension files.
 5. Configure the keyboard shortcuts by going to [chrome://extensions/shortcuts](chrome://extensions/shortcuts).
-6. Open the extension options page and enter your Groq API Key and OpenAI API Key.
+6. Open the extension options page and enter your Groq API Key. (You can choose whether to set the OpenAI API Key, as it is only needed if you want to confirm the accuracy of the translation by translating it back to Chinese.)
 
 ## How to Use
 1. Use the **Toggle Popup** shortcut (`Ctrl + F` on Mac) to open the Smart-Recorder extension popup.
