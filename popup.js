@@ -134,11 +134,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const lastEnglishResult = localStorage.getItem('lastEnglishResult');
     const lastChineseResult = localStorage.getItem('lastChineseResult');
     if (lastEnglishResult) {
-        showResult(lastEnglishResult, false); // Don't reset the UI on reload
+        showResult(lastEnglishResult, false);
     }
     if (lastChineseResult) {
-        showChineseResult(lastChineseResult, false); // Don't reset the UI on reload
+        showChineseResult(lastChineseResult, false);
     }
+
+    // Add event listeners for textarea changes
+    const resultElement = document.getElementById('result');
+    const chineseResultElement = document.getElementById('chineseResult');
+
+    resultElement.addEventListener('input', () => {
+        localStorage.setItem('lastEnglishResult', resultElement.value);
+    });
+
+    chineseResultElement.addEventListener('input', () => {
+        localStorage.setItem('lastChineseResult', chineseResultElement.value);
+    });
 });
 
 function showResult(text, shouldSave = true) {
