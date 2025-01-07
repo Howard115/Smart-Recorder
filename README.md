@@ -23,7 +23,7 @@
 3. Enable "Developer mode" by toggling the switch in the top-right corner.
 4. Click on "Load unpacked" and select the folder containing the extension files.
 5. Configure the keyboard shortcuts by going to [chrome://extensions/shortcuts](chrome://extensions/shortcuts).
-6. Open the extension options page and enter your Groq API Key. (You can choose whether to set the OpenAI API Key, as it is only needed if you want to confirm the accuracy of the translation by translating it back to Chinese.)
+6. Open the extension options page and enter your [Groq API Key](https://console.groq.com/keys). (You can choose whether to set the [OpenAI API Key](https://platform.openai.com/api-keys), as it is only needed if you want to confirm the accuracy of the translation by translating it back to Chinese.)
 
 ## How to Use
 1. Use the **Toggle Popup** shortcut (`Ctrl + F` on Mac) to open the Smart-Recorder extension popup.
